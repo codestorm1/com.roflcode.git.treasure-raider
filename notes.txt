@@ -1,0 +1,9 @@
+
+don't get friends list in login part, to keep friends list off the session
+create User with basic info, then figure out where to update with friends call.
+
+Clumsy, but that's the roundabout way tornado/tipfy works.
+
+probably create Character in user.create() call for transactional safety
+
+move User class to tr.models and import?

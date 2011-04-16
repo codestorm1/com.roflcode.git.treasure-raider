@@ -1,0 +1,139 @@
+
+body {
+	background-image: url('/static/images/main_game.png'); 
+	background-repeat:no-repeat;
+	height:800px;
+}
+.user_status {
+/*	position:absolute;
+	top:3px;
+	left:20px;
+*/
+	float:left;
+	color:#FBC933;
+	font-weight: bold;
+	font-family: Tahoma;
+	margin-left:45px;
+	margin-top:185px
+}
+
+
+div.signout {
+	position:absolute;
+	top:3px;
+	left:500px;
+}
+
+span.error_messages {
+	position:absolute;
+	padding:5px;
+	top:5px;
+	left:10px;
+	color:black;
+	background-color:pink;
+	border: solid 1px black;
+}
+
+/*
+.user_status .name {
+	background-color:#653300;
+}
+.user_status img {
+	margin-left:27px;
+	padding-top:19px;
+
+}
+.signout {
+	display: block;
+	margin-top: 10px;
+	margin-left:20px;	
+}
+*/
+
+#profile_pic {
+	margin-top:10px;
+}
+
+#people_bar {
+	margin-top:180px;
+	margin-left:30px;
+}
+
+#people_bar span, li {
+	font-weight: bold;
+	font-family: Tahoma;
+	text-align:center;	
+}
+
+#people_bar a, a:active, a:hover {
+	color:#FBC933;
+}
+
+.friend_frame ul,li.friend_frame {
+	/*background-color:blue;
+	border: 1px solid green;*/
+	color:#FBC933;
+	margin-left:10px;
+	width:125px;
+	height:150px;
+	float:left;
+	display:inline;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.friend_frame span {
+	background-color:#653300;
+}
+.friend_frame img {
+	padding-top:30px;
+	padding-left:0px;
+}
+
+#nickname_page {
+	padding-top: 330px;
+}
+#entry {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #000;
+	color:white;
+	background-color: #009FD6;
+	width:300px;
+	height:150px;
+	margin-left:180px;;
+	padding: 10px;
+}
+
+#entry h1, h2, input {
+	padding-bottom:5px;
+}
+#submit {
+	marin-top:50px;
+	display:block;
+	padding:5px;
+}
+#fb_login {
+	position:absolute;
+	top:395px;
+	left:285px;
+}
+
+#qr_code_image {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+}
+/*
+.user-status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+}
+.user-status p {
+    padding: .5em;
+    margin: 0;
+}
+
+*/

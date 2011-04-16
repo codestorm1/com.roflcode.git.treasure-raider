@@ -1,0 +1,12 @@
+character_name,key_name,image_url,is_fake,date
+Mummy,SYS_Mummy,http://top-of-the-pyramid.appspot.com/static/images/characters/mummy.jpg,TRUE,02/20/2010
+The Visitor,SYS_Alien,http://top-of-the-pyramid.appspot.com/static/images/characters/alien.jpg,TRUE,02/20/2010
+Anubis,SYS_Anubis,http://top-of-the-pyramid.appspot.com/static/images/characters/anubis.jpg,TRUE,02/20/2010
+Snefru,SYS_Snefru,http://top-of-the-pyramid.appspot.com/static/images/characters/pharoah.jpg,TRUE,02/20/2010
+Cleo,SYS_Cleo,http://top-of-the-pyramid.appspot.com/static/images/characters/girl.jpg,TRUE,02/20/2010
+Prof. Diggenheimer,SYS_Explorer_male,http://top-of-the-pyramid.appspot.com/static/images/characters/oldexplorer.jpg,TRUE,02/20/2010
+Miss Tombsnoop,SYS_Explorer_female,http://top-of-the-pyramid.appspot.com/static/images/characters/raider.jpg,TRUE,02/20/2010
+Horus,SYS_Horus,http://top-of-the-pyramid.appspot.com/static/images/characters/horus.jpg,TRUE,02/20/2010
+Snidely Goldgrabber,SYS_Kid,http://top-of-the-pyramid.appspot.com/static/images/characters/thief.jpg,TRUE,02/20/2010
+Sgt. Itchtrigger,SYS_Soldier,http://top-of-the-pyramid.appspot.com/static/images/characters/army.jpg,TRUE,02/20/2010
+Sample Player,SYS_Sample_Player,http://top-of-the-pyramid.appspot.com/static/images/egyptFaceFem2.jpg,FALSE,02/20/2010

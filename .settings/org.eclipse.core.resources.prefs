@@ -1,0 +1,22 @@
+#Mon Apr 11 23:51:23 PDT 2011
+eclipse.preferences.version=1
+encoding//app/apps/auth_demo/urls.py=utf-8
+encoding//app/apps/auth_example/urls.py=utf-8
+encoding//app/apps/hello_world/handlers.py=utf-8
+encoding//app/apps/hello_world/urls.py=utf-8
+encoding//app/apps/treasure_raider/urls.py=utf-8
+encoding//app/config.py=utf-8
+encoding//app/distlib/jinja2/environment.py=utf-8
+encoding//app/distlib/werkzeug/datastructures.py=utf-8
+encoding//app/distlib/werkzeug/debug/__init__.py=utf-8
+encoding//app/distlib/werkzeug/utils.py=utf-8
+encoding//app/lib/tipfy/__init__.py=utf-8
+encoding//app/lib/tipfy/ext/auth/__init__.py=utf-8
+encoding//app/lib/tipfy/ext/auth/facebook.py=utf-8
+encoding//app/lib/tipfy/ext/auth/facebookClientFlow.py=utf-8
+encoding//app/lib/tipfy/ext/auth/facebookServerFlow.py=utf-8
+encoding//app/lib/tipfy/ext/auth/model.py=utf-8
+encoding//app/lib/tipfy/ext/jinja2/scripts.py=utf-8
+encoding//app/lib/tipfy/ext/session.py=utf-8
+encoding//app/main.py=utf-8
+encoding//app/urls.py=utf-8

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Treasure Raider</title>
+		
+		<script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAd0z5bdC-c86830NY5Jg2nBTD8g82gL3xrXY2_Wids598ntq44RTwiuTVv9ibPQDsSPMQP7XCvrZsOA"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="/static/scripts/jquery_plugins/jquery.cookie.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/styles/YUI_reset.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/styles/game.css"/>
+    </head>
+    <body>
+    	<div id="main">
+        {% block body %}
+        {% endblock %}
+		</div>
+    </body>
+<!--
+	<div class="signout">	
+        {% if current_user or auth_session -%}
+        {% if current_user -%}
+            <span class="user_email name">{{ current_user.username|e }}</span><br/>
+        {%- endif %}
+		{% if current_user.profile_image_url %}
+		<img src="{{ current_user.profile_image_url }}"><br/>
+		
+        {% endif %}
+		 <a class="signout" href="{{ logout_url }}">Sign out</a><br/>
+        {% endif %}
+	</div>
+-->	
+
+<script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({appId: '{{ facebook_api_key }}', status: true, cookie: true,
+                 xfbml: true});
+ 		FB.Event.subscribe('auth.login', function(response) {
+			//alert('got login event');
+		  //window.location.href = '/auth/facebook/?continue=%2F';
+        });
+      };
+  
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+  
+</script>
+<!--
+<script type="text/javascript">
+		var cookieNameToken = "tr_fb_access_token"; 
+		var cookieNameExpires = "tr_fb_expires"; 
+//        $.cookie(cookieName, null); 
+        //alert('cookie: ' +$.cookie(cookieName));
+		var tokenCookie = $.cookie(cookieNameToken);
+		if (!tokenCookie) { // we have no access token, not signed into FB or cookie unsaved
+			var url;
+			var urlHash = window.location.hash;
+	        if (urlHash.length == 0)
+	        {
+		        var appId = "{{ facebook_app_id }}"; 
+	            url = "https://www.facebook.com/dialog/oauth?client_id=" + 
+	                     appId  + "&redirect_uri=" + window.location +//top.window.location +
+	                     "&response_type=token";
+	            //window.open(url);
+				window.location = url;
+			}
+			else {
+				if (urlHash.indexOf('access_token') != -1) { // we have facebook token
+					var nvPairs = urlHash.substring(1).split('&');
+					var tokenNvp = nvPairs[0];
+					var tokenValue = tokenNvp.split('=')[1];
+	            	var expiresNvp = nvPairs[1];
+					var expiresValue =  expiresNvp.split('=')[1];
+					var expiresSeconds = parseInt(expiresValue, 10);
+					//expiresSeconds = 10;
+		            var date = new Date();
+	                date.setTime(date.getTime() +  expiresSeconds * 1000); 
+					$.cookie(cookieNameToken, tokenValue, {expires: date, path: '/'});
+					$.cookie(cookieNameExpires, expiresValue, {expires: date, path: '/'});
+					var cookieTokenResult = $.cookie(cookieNameToken);
+					var cookieExpiresResult = $.cookie(cookieNameExpires);
+			//        $.cookie(cookieNameToken, null); 
+			        //alert('cookie: ' +$.cookie(cookieNameToken));
+			        //alert('read cookie after setting it: ' + $.cookie(cookieNameToken));
+					if (!cookieTokenResult) {
+						alert('aborting, failed to read cookie after setting it: ' + cookieResult);
+					}
+					else {
+						url = window.location.protocol + '//' + window.location.host + '/auth/facebookclientflow?' + cookieNameToken + '=' + cookieTokenResult + '&' + 'expires_seconds=' + cookieExpiresResult + '&continue=/'; // /auth/signup
+						//alert('[base page] redirect to: ' + url);
+						alert('[base page] redirect to FB client flow');
+						//window.open(url);
+						window.location.href = url;
+					}
+				}
+			}
+		}
+
+/*        } else {
+            accessToken = window.location.hash.substring(1);
+            graphUrl = "https://graph.facebook.com/me?" + accessToken +
+                        "&callback=displayUser"
+
+            //use JSON-P to call the graph
+            var script = document.createElement("script");
+            script.src = graphUrl;
+            document.body.appendChild(script);
+        }
+            */
+			
+			
+			  
+
+//        function displayUser(user) {
+//			var userName = document.getElementById('userName');
+//            userName.innerText = user.name;
+//        }
+</script>
+-->
+        <p id="userName"></p>
+		
+</html>

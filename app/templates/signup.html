@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% from '_form_macros.html' import form_field %}
+
+{% block body %}
+<style>
+body {
+	background-image: url('/static/images/splash.png');
+} 
+</style>
+<div id="nickname_page">
+	<div id="entry">
+    <h1>Signup</h1>
+    <h2>Please choose a nickname.</h2>
+    <form method="post" action="{{ current_url }}" enctype="multipart/form-data" class="tipfy-form">
+        <ol>
+            <li><h2>{{ form_field(form.nickname, class='medium') }}</h2></li>
+        </ol>
+        <input id="submit" type="submit" name="submit" value="{{ _('Save') }}">
+    </form>
+	</div>
+</div>
+{% endblock %}
+

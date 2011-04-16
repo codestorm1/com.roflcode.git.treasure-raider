@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+<style>
+body {
+	background-image: url('/static/images/splash.png');
+} 
+</style>
+
+<div id="splash">
+
+	<!-- below is the tipfy login -->
+	<div id="fb_login">
+		{# tipfy standard login flow #}	
+{#        <a href="{{ facebook_login_url }}" title="Sign in with Facebook"><img src="/static/images/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a> #}
+        <a href="{{ facebook_server_flow_login_url }}" title="Sign in with Facebook"><img src="/static/images/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a>
+	</div>
+
+	
+<!-- leave this one and only fb root here! -->
+<div id="fb-root"></div>
+
+
+{#
+	<!-- from some non-tipfy demo -->
+    <fb:login-button autologoutlink="true"></fb:login-button>
+
+    {% if current_user %}
+      <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.id }}/picture?type=square"/></a></p>
+      <p>Hello, {{ current_user.name|escape }}</p>
+    {% endif %}	
+</div>
+#}
+
+	<img id="qr_code_image" src="/static/images/url_qr_code_s.png" alt="">
+
+</div>
+<!--
+<script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({appId: '{{ facebook_api_key }}', status: true, cookie: true,
+                 xfbml: true});
+ 		FB.Event.subscribe('auth.login', function(response) {
+		  //window.location.href = '/auth/facebook/?continue=%2F';
+        });
+      };
+  
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+  
+</script>
+-->
+
+<!--
+<script type="text/javascript">
+  (function() {
+		var cookieNameTipfy = "tipfy.auth";
+		var cookieTipfyAuth = $.cookie(cookieNameTipfy);
+		alert(cookieNameTipfy + ': ' + cookieTipfyAuth);
+		cookieNameTipfy = "tipfy.session";
+		var cookieTipfySession = $.cookie(cookieNameTipfy);
+		alert(cookieNameTipfy + ': ' + cookieTipfySession);
+		if (!cookieTipfyAuth) {
+			var cookieNameToken = "tr_fb_access_token"; 
+			var cookieNameExpires = "tr_fb_expires"; 
+			var cookieTokenResult = $.cookie(cookieNameToken);
+			var cookieExpiresResult = $.cookie(cookieNameExpires);
+			alert('tr fb cookies: ' + cookieTokenResult + ' ' + cookieExpiresResult);
+			if (cookieTokenResult && cookieExpiresResult) {
+				//url = window.location.protocol + '//' + window.location.host + '/auth/facebookclientflow?' + cookieNameToken + '=' + cookieTokenResult + '&' + 'expires_seconds=' + cookieExpiresResult + '&continue=/'; // /auth/signup
+				url = '/auth/signup';
+				alert('[login page] redirecting to ' + url);
+				window.location.href = url;
+			}
+		}
+	}());
+</script>
+-->
+{% endblock %}
+

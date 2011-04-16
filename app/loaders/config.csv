@@ -1,0 +1,3 @@
+environment,experience_limits_group,starting_cash,starting_coin,hunt_zone_max_air,daily_air_refresh_rate,hunt_grid_horizontal_squares,hunt_grid_vertical_squares
+production,normal,5,100,5,15,7,6
+development,test,6,200,6,30,7,6
