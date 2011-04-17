@@ -176,12 +176,14 @@ class FacebookServerFlowMixin(object):
             profile = graph.get_object("me")
         except Exception, e:
             logging.error(e)
-        friends = graph.get_connections("me", "friends")
-        profile['friend_ids'] = ','.join(['facebook|' + friend['id'] for friend in friends['data']])
+
+        #friends = graph.get_connections("me", "friends")
+        #profile['friend_ids'] = ','.join(['facebook|' + friend['id'] for friend in friends['data']])
 
         profile['uid'] = profile['id']
         profile['access_token'] = access_token
         profile['expires_seconds'] = expires_seconds
+        profile['token_acquired_time'] = str(datetime.datetime.now())
         return callback(profile)
 
     def facebook_request(self, method, callback, **kwargs):

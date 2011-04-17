@@ -1,4 +1,5 @@
 import logging
+import os
 
 from tipfy import abort, cached_property, import_string, redirect
 from treasure_raider.models import Config
@@ -24,7 +25,7 @@ class EnvironmentMiddleware(object):
     
     @cached_property
     def get_game_config(self):
-        return Config.get_by_key_name('development')        
+        return Config.get_for_current_environment()
         
     def _populate_environment(self, handler):
         """Implementation for user_required and UserRequiredMiddleware."""

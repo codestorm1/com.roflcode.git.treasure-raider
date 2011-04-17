@@ -1,6 +1,7 @@
 from google.appengine.ext import db
 from google.appengine.tools import bulkloader
 
+from treasure_raider.models import Experience_limits
 
 class Experience_limits_loader(bulkloader.Loader):
     def __init__(self):

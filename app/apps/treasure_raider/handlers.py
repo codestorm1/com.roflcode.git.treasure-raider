@@ -200,13 +200,13 @@ class ContentHandler(BaseHandler):
         
         return self.render_response('content.html', **kwargs)
 
-#    @check_refresh_user
-    @user_required
+    @check_refresh_user
+#    @user_required
     def get(self, **kwargs):
         return self.doit(**kwargs)
 
-#    @check_refresh_user    
-    @user_required
+    @check_refresh_user    
+#    @user_required
     def post(self, **kwargs):
         return self.doit(**kwargs)
 
@@ -502,7 +502,7 @@ class FacebookServerFlowAuthHandler(BaseHandler, FacebookServerFlowMixin):
         _user['last_name'] = user.get('last_name')
         _user['username'] = user.get('username')
         _user['profile_url'] = user.get('link')
-        _user['friend_ids'] = user['friend_ids']
+        #_user['friend_ids'] = user['friend_ids']
         #_user[''] = user['']
 
         kwargs = _user

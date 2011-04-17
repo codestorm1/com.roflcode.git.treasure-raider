@@ -1,9 +1,9 @@
-from datetime import timedelta
 from datetime import datetime
 from google.appengine.ext import db
 
 #from tipfy.ext.auth import User #circular reference?
 
+import os
 import logging
 import random
 
@@ -30,19 +30,19 @@ class Character(db.Model):
     is_fake = db.BooleanProperty(required=True)
     tutorial_on = db.BooleanProperty() # add this property to fake chars so prop can be required=True
     friend_count = db.IntegerProperty()
-    friend_keys = db.ListProperty(item_type=db.Key, required=True)
+    friend_keys = db.ListProperty(item_type=db.Key)
     is_deleted = db.BooleanProperty(default=False)
 
-
-    def create(self, config, character_name, image_url, is_fake):
+    @staticmethod
+    def create(config, user, image_url, is_fake):
         '''create new character
         todo: seems redundant to have coins_account with character as parent,
         and Account reference type for coins account as character property,
         requires an extra put()
         '''
 
-        character = Character(#key_name=character_name, #to key or not to key <- answer, no key
-            character_name=character_name,
+        character = Character(parent=user,#key_name=character_name, #to key or not to key <- answer, no key
+            character_name=user.username,
             creation_date = datetime.utcnow(),
             language = "xx",
             country = "XX",
@@ -56,26 +56,27 @@ class Character(db.Model):
             friend_keys = [],
             tutorial_on = True)
         character.put()
-        chamberController = ChamberController()
-        hunt_grid = chamberController.create_hunt_grid(config, character)
-        chamberController.populate_hunt_grid(hunt_grid)
+        Hunt_grid.create(config, character)
+        #hunt_grid.populate()
         
         currency_type = 'coins'
+        key_name = '%s_%s' % (character.character_name, currency_type)
         coins_account = Account(parent=character,
-                               key_name='%s_%s' % (character_name, currency_type),
+                               key_name=key_name,
                                currency_type=currency_type,
                                negative_balance_allowed=False, 
                                balance=config.starting_coins)
-        coins_account.put()
-        character.coins_account = coins_account
 
         currency_type = 'cash'
+        key_name = '%s_%s' % (character.character_name, currency_type)
         cash_account = Account(parent=character,
-                               key_name='%s_%s' % (character_name, currency_type),
+                               key_name=key_name,
                                currency_type=currency_type, 
                                negative_balance_allowed=False, 
                                balance=config.starting_cash)
-        cash_account.put()
+        db.put((coins_account, cash_account))
+
+        character.coins_account = coins_account
         character.cash_account = cash_account
         character.put()
         return character
@@ -158,7 +159,7 @@ class Message(db.Model):
 #make this a tranactional update
     
     
-# todo: the following 3 classes are worthless and should be converted to dicts    
+# todo: the following 2 classes are worthless and should be converted to dicts    
 class Caller_context(object):
     output_type = 'full'
     base_root = ''
@@ -230,6 +231,16 @@ class Config(db.Model):
     hunt_grid_horizontal_squares = db.IntegerProperty(required=True)
     hunt_grid_vertical_squares = db.IntegerProperty(required=True)
     
+    @staticmethod
+    def get_for_current_environment():
+        debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
+        environment = 'development' if debug else 'production'
+        config = Config.get_by_key_name(environment)
+        if config is None:
+            raise('missing config entry for environment: %s' % environment)
+        return config        
+        
+    
 class Item(db.Model):
     ''' anything a player can own
     '''
@@ -294,10 +305,10 @@ class Hunt_grid(db.Model):
             logging.warning('grid size for grid with key name %d did not match square count' % self.key().name())
         return squares
 
-    def populate(self, hunt_grid):
+    def populate(self):
         
-        if not hunt_grid:
-            raise Exception('populate_hunt_grid requires valid hunt_grid parameter')
+        #if not hunt_grid:
+        #    raise Exception('populate_hunt_grid requires valid hunt_grid parameter')
 
         def fill_squares(hunt_grid, items):
             squares = hunt_grid.get_squares()
@@ -323,17 +334,16 @@ class Hunt_grid(db.Model):
             dig_zone_statuses = query.fetch(1000)
             db.delete(dig_zone_statuses)
             
-            
             update_entities.append(hunt_grid)
             db.put(update_entities)
             return True
         
         query = Item.all().filter('abundance >',0)
         items = query.fetch(1000)
-        db.run_in_transaction(fill_squares, hunt_grid, items)
+        db.run_in_transaction(fill_squares, self, items)
         
-    
-    def create(self, config, character):
+    @staticmethod
+    def create(config, character):
         
         def create_grid_with_squares(config, character):
             hunt_grid = Hunt_grid(parent=character,
@@ -354,10 +364,10 @@ class Hunt_grid(db.Model):
                                         covered=True)
                     square.put()
             return hunt_grid
-        hunt_grid = db.run_in_transaction(create_grid_with_squares, config, character)
+        #hunt_grid = db.run_in_transaction(create_grid_with_squares, config, character)
+        hunt_grid = create_grid_with_squares(config, character) #we're already in a transaction.  todo: Can this be detected in code?
+        
         return hunt_grid
-
-
 
 
 class Hunt_zone_user_status(db.Model):

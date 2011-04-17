@@ -18,9 +18,15 @@ if 'lib' not in sys.path:
 
 import config
 import tipfy
+from google.appengine.dist import use_library
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+use_library('django', '0.96')
 
 # Is this the development server?
 debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'apps'))
 
 env_config = config.configs['development'] if debug else config.configs['production']
 

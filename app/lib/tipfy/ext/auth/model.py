@@ -20,7 +20,7 @@ from google.appengine.ext import db
 
 from tipfy import get_config
 
-from treasure_raider.models import Character
+from treasure_raider.models import Account, Character, Config
 
 SALT_CHARS = string.ascii_letters + string.digits
 
@@ -73,6 +73,8 @@ class User(db.Model):
     
     # Admin flag.
     is_admin = db.BooleanProperty(required=True, default=False)
+    
+    friend_ids = db.StringListProperty()
 
     character = db.ReferenceProperty(reference_class=Character)
     is_deleted = db.BooleanProperty(default=False)
@@ -113,6 +115,7 @@ class User(db.Model):
         kwargs['auth_id'] = auth_id
         # Generate an initial session id.
         kwargs['session_id'] = gen_salt(length=32)
+        kwargs['friend_ids'] = []
 
 
         if 'password_hash' in kwargs:
@@ -121,6 +124,7 @@ class User(db.Model):
         elif 'password' in kwargs:
             # Password is not hashed: generate a hash.
             kwargs['password'] = gen_pwhash(kwargs['password'])
+        config = Config.get_for_current_environment()
 
         def txn():
             if cls.get_by_username(username) is not None:
@@ -128,37 +132,13 @@ class User(db.Model):
                 return None
 
             user = cls(**kwargs)
-            character = treasure_raider.models.Character(character_name=user.username, image_url=user.profile_image_url)
+            character = Character.create(config=config, user=user, image_url=user.profile_image_url, is_fake=False)
             user.character = character
-            db.put(user, charcater)
+            db.put((user, character))
             
             return user
 
         return db.run_in_transaction(txn)
-
-
-
-class Character(db.Model):
-    ''' turn into polymodel, or set up default values in bulkloader, so more properties can be "required"
-    '''
-    character_name = db.StringProperty(required=True)
-    image_url = db.LinkProperty(required=True)
-    language = db.StringProperty()
-    country = db.StringProperty()
-    ip_address = db.StringProperty()
-    coins_account = db.ReferenceProperty(reference_class=Account, collection_name = 'coins_account_set')
-    cash_account = db.ReferenceProperty(reference_class=Account, collection_name = 'cash_account_set')
-    experience_points = db.IntegerProperty()
-    experience_level = db.IntegerProperty()
-    acknowledged_experience_level = db.IntegerProperty()
-    invited_by = db.SelfReferenceProperty(default=None, collection_name="invited_by_set")
-    creation_date = db.DateTimeProperty()
-    is_fake = db.BooleanProperty(required=True)
-    tutorial_on = db.BooleanProperty() # add this property to fake chars so prop can be required=True
-    friend_count = db.IntegerProperty()
-    friend_keys = db.ListProperty(item_type=db.Key, required=True)
-    is_deleted = db.BooleanProperty(default=False)
-
 
     def set_password(self, new_password):
         """Sets a new, plain password.
