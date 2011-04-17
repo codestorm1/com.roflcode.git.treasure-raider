@@ -14,15 +14,11 @@ body {
 	<!-- below is the tipfy login -->
 	<div id="fb_login">
 		{# tipfy standard login flow #}	
-{#        <a href="{{ facebook_login_url }}" title="Sign in with Facebook"><img src="/static/images/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a> #}
-        <a href="{{ facebook_server_flow_login_url }}" title="Sign in with Facebook"><img src="/static/images/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a>
+{#        <a href="{{ facebook_login_url }}" title="Sign in with Facebook"><img src="/static/images/auth_providers/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a> #}
+        <a href="{{ facebook_server_flow_login_url }}" title="Sign in with Facebook"><img src="/static/images/auth_providers/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a>
 	</div>
 
 	
-<!-- leave this one and only fb root here! -->
-<div id="fb-root"></div>
-
-
 {#
 	<!-- from some non-tipfy demo -->
     <fb:login-button autologoutlink="true"></fb:login-button>

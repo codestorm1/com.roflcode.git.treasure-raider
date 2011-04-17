@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+        <link rel="stylesheet" type="text/css" href="/static/styles/main_game.css"/>
+{% endblock %}
+
+{% block body %}
+{% if error_messages %}
+<span class="error_messages">
+	{% for error_message in error_messages %}
+	{{ error_message }}<br/>
+	{% endfor %}
+</span>
+{% endif %}
+	<img id="logo" src="/static/images/tr_logo.png"/>
+	<img id="get_more" src="/static/images/get_more.png"/>
+	<img id="store" src="/static/images/store.png"/>
+	<div id="experience_area">
+		<div id="life" class="status_bar">
+			<img class="bar" src="/static/images/bar_generic.png"/>
+			<img class="circle" src="/static/images/circle_generic.png"/>
+			<img class="asset_type" src="/static/images/heart.png"/>
+		</div>
+		<div id="xp" class="status_bar">
+			<img class="bar" src="/static/images/bar_generic.png"/>
+			<img class="circle" src="/static/images/circle_generic.png"/>
+			<img class="asset_type" src="/static/images/xp.png"/>
+		</div>
+		<div id="cash" class="status_bar">
+			<img class="bar" src="/static/images/bar_generic.png"/>
+			<img class="circle" src="/static/images/circle_generic.png"/>
+			<img class="asset_type" src="/static/images/doubloon.png"/>
+		</div>
+		<div id="coins" class="status_bar">
+			<img class="bar" src="/static/images/bar_generic.png"/>
+			<img class="circle" src="/static/images/circle_generic.png"/>
+			<img class="asset_type" src="/static/images/gold.png"/>
+		</div>
+	</div>
+
+
+    <ul id="people_bar">
+    <li class="friend_frame zuser_status">
+        {% if current_user or auth_session -%}
+        {% if current_user -%}
+            <span class="user_email name">{{ current_user.username|e }}</span><br/>
+        {%- endif %}
+		{% if current_user.profile_image_url %}
+		<img src="{{ current_user.profile_image_url }}"><br/>
+		
+        {% endif %}
+		 {#<a class="signout" href="{{ logout_url }}">Sign out</a><br/>#}
+        {% endif %}
+    </li>
+    {% for friend in friends %}
+	<li class="friend_frame">
+		<span>{{ friend.username }}</span><br/>
+		{#  <span>{{ friend.auth_id }}</span> #}
+        <img src="{{ friend.profile_image_url }}"/><br/>
+	</li>
+    {% endfor %}
+    </ul>	 
+	
+	
+{% endblock %}
+

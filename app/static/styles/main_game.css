@@ -1,0 +1,50 @@
+body {
+	background-color: #00A2E8;
+	background-repeat:no-repeat;
+	height:960px;
+	width:640px;
+} 
+
+#logo {
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+
+#get_more {
+	position:absolute;
+	top:30px;
+	left:150px;
+}
+
+#store {
+	position:absolute;
+	top:100px;
+	left:210px;
+}
+
+#experience_area {
+	position:absolute;
+	top:30px;
+	left:320px;
+	width:320px;
+}
+
+.status_bar {
+	float:left;
+	width:150px;
+}
+
+.status_bar .bar {
+	margin-top:5px;
+}
+
+.status_bar .circle {
+	position:absolute;
+	left:90px;
+}
+
+.status_bar .asset_type {
+	margin-top:5px;
+	margin-left:100px;
+}

@@ -153,7 +153,7 @@ def _check_refresh_user(handler):
         user.access_token = cookie_token #update the access token
         error_messages.append('updated access token from TR cookie %s' % user.access_token)
     else:
-        error_messages.append('no tr_fb_access_token cookie')
+        #error_messages.append('no tr_fb_access_token cookie')
         logging.warning('no tr facebook cookie to read.')
         logging.warning('environment:' +  handler.app.get_config('tipfy.ext.auth.facebook', 'environment') + ' api key:' + FACEBOOK_APP_KEY)
         
@@ -171,7 +171,8 @@ def _check_refresh_user(handler):
         except HTTPError, e:
             if e.headers['www-authenticate'].find('access token') != -1:
                 token_error = 'facebook rejected access token %s' % user.access_token
-                error_messages.append(token_error)
+                #error_messages.append(token_error)
+                error_messages.append('friends list not refreshed')
                 logging.warning(token_error)
                 logging.warning(e.headers['www-authenticate'])
                 wrapper.attribute = 1
@@ -198,7 +199,7 @@ class ContentHandler(BaseHandler):
         kwargs['error_messages'].append(str(len(friends)) + ' of ' + str(len(user.friend_ids)) + ' friends playing')
         
         
-        return self.render_response('content.html', **kwargs)
+        return self.render_response('main_game.html', **kwargs)
 
     @check_refresh_user
 #    @user_required

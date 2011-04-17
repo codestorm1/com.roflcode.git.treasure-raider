@@ -10,8 +10,13 @@
 		<script type="text/javascript" src="/static/scripts/jquery_plugins/jquery.cookie.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/styles/YUI_reset.css"/>
         <link rel="stylesheet" type="text/css" href="/static/styles/game.css"/>
+        {% block head %}
+        {% endblock %}
+		
     </head>
     <body>
+		<!-- leave this one and only fb root here! -->
+		<div id="fb-root"></div>
     	<div id="main">
         {% block body %}
         {% endblock %}
